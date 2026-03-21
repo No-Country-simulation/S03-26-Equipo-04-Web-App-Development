@@ -1,3 +1,6 @@
-#!/bin/bash
-# Aquí puedes agregar cualquier comando que necesites ejecutar al iniciar el contenedor
-echo "Comandos de entrada para el contenedor backend"
+#!/bin/sh
+
+echo "🚀 Iniciando el servidor FastAPI..."
+
+# Usar 'python -m uvicorn' es más seguro en entornos Docker
+exec python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
