@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from app.database import engine, Base
-from app.routers import contacts, mocks # Importamos los nuevos archivos
+# Importaciones directas de los archivos
+from app.routers.contacts import router as contacts_router
+from app.routers.mocks import router as mocks_router
+from app.routers.messages import router as messages_router
 
 # Creamos las tablas en PostgreSQL
 Base.metadata.create_all(bind=engine)
@@ -11,9 +14,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Incluimos las rutas de los archivos externos
-app.include_router(contacts.router)
-app.include_router(mocks.router)
+# Incluimos los routers usando los nombres que importamos arriba
+app.include_router(contacts_router)
+app.include_router(mocks_router)
+app.include_router(messages_router)
 
 @app.get("/")
 def read_root():

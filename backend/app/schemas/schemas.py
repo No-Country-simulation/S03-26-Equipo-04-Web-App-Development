@@ -1,6 +1,24 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from datetime import datetime
+from typing import List, Optional
 
+# --- ESQUEMAS DE MENSAJES ---
+class MessageCreate(BaseModel):
+    contact_id: int
+    content: str
+    sender: Optional[str] = "user"
+
+class MessageResponse(BaseModel):
+    id: int
+    contact_id: int
+    content: str
+    sender: str
+    timestamp: datetime
+
+    class Config:
+        from_attributes = True
+
+# --- ESQUEMAS DE CONTACTOS ---
 class ContactBase(BaseModel):
     name: str
     email: EmailStr
@@ -10,7 +28,7 @@ class ContactBase(BaseModel):
     tags: Optional[str] = None
     notes: Optional[str] = None
 
-class ContactCreate(ContactBase):
+class ContactCreate(ContactBase):  # <--- ESTE ES EL QUE FALTABA
     pass
 
 class ContactUpdate(BaseModel):
