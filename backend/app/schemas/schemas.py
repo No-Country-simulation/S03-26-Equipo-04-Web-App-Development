@@ -1,18 +1,27 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 
-# Esquema base con los campos comunes para un contacto
 class ContactBase(BaseModel):
     name: str
     email: EmailStr
     phone: Optional[str] = None
-    status: Optional[str] = "lead"
+    status: Optional[str] = "active"
+    funnel_stage: Optional[str] = "lead"
+    tags: Optional[str] = None
+    notes: Optional[str] = None
 
-# Esquema para la creación de nuevos contactos. No requiere ID
 class ContactCreate(ContactBase):
     pass
 
-# Esquema de respuesta que incluye el ID generado por la base de datos
+class ContactUpdate(BaseModel):
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    phone: Optional[str] = None
+    status: Optional[str] = None
+    funnel_stage: Optional[str] = None
+    tags: Optional[str] = None
+    notes: Optional[str] = None
+
 class ContactResponse(ContactBase):
     id: int
     
