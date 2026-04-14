@@ -36,3 +36,8 @@ yarn-debug.log*
 
 # OS-specific files
 .DS_Store
+
+# Secretos y Variables de Entorno
+.env
+.env.local
+.env.*.local
