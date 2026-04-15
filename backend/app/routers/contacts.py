@@ -9,6 +9,16 @@ router = APIRouter(prefix="/contacts", tags=["Contacts"])
 
 @router.post("/", response_model=ContactResponse, status_code=201)
 def create_contact(contact: ContactCreate, db: Session = Depends(get_db)):
+    # Verificar si ya existe un contacto con el mismo nombre
+    existing_name = db.query(Contact).filter(Contact.name == contact.name).first()
+    if existing_name:
+        raise HTTPException(status_code=400, detail="Un contacto con este nombre ya existe")
+        
+    # Verificar si ya existe un contacto con el mismo email
+    existing_email = db.query(Contact).filter(Contact.email == contact.email).first()
+    if existing_email:
+        raise HTTPException(status_code=400, detail="Un contacto con este email ya existe")
+
     db_contact = Contact(**contact.model_dump())
     db.add(db_contact)
     db.commit()
