@@ -117,9 +117,6 @@ Una vez levantado, accede a:
 
 ---
 
-<p align="center">
-  Desarrollado con ❤️ para el ecosistema Startup.
-</p>
 
 
 
